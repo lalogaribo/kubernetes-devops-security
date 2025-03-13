@@ -22,10 +22,10 @@ pipeline {
                 }
             }
         }
-        
+        // https://registry.hub.docker.com/
         stage('Docker Build & Push') {
             steps {
-              withDockerRegistry(credentialsId: 'docker-registry') {
+              withDockerRegistry(credentialsId: 'docker-registry', url: 'https://index.docker.io/v1/') {
                     sh 'printenv'
                     sh 'docker build -t egaribo/numeric-app:""$GIT_COMMIT"" .'
                     sh 'docker push egaribo/numeric-app:""$GIT_COMMIT""'

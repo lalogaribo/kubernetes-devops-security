@@ -23,6 +23,15 @@ pipeline {
             }
         }
         
+        stage('Docker Build & Push') {
+            steps {
+              withDockerRegistry(credentialsId: 'docker-registry') {
+                    sh 'printenv'
+                    sh 'docker build -t egaribo/numeric-app:""$GIT_COMMIT"" .'
+                    sh 'docker push egaribo/numeric-app:""$GIT_COMMIT""'
+                }
+            }
+        }
         
     }
 }
